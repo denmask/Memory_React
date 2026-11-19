@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap");
+
+:root {
+  --glaze: #eef3f9;
+  --cobalt: #1b3a9e;
+  --cobalt-light: #2d52c4;
+  --deep: #0f1f54;
+  --lemon: #f4c430;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--glaze);
+  color: var(--deep);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+}
+
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--cobalt);
+}
+
+.header p {
+  margin: 6px 0 0;
+}
+
+/* Livelli */
+.levels {
+  display: flex;
+  gap: 8px;
+}
+
+.level {
+  font: inherit;
+  text-transform: capitalize;
+  padding: 8px 18px;
+  border: 2px solid var(--cobalt);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cobalt);
+  cursor: pointer;
+}
+
+.level.active {
+  background: var(--cobalt);
+  color: white;
+}
+
+/* Statistiche */
+.stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stats div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats span {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.stats strong {
+  font-size: 1.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tavoliere */
+.board {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  gap: 10px;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  perspective: 600px;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transition: transform 0.45s ease;
+}
+
+/* Dorso: piastrella di maiolica */
+.back {
+  background:
+    radial-gradient(circle, var(--lemon) 0 14%, transparent 15%),
+    conic-gradient(
+      from 45deg,
+      var(--cobalt) 0 25%,
+      var(--cobalt-light) 0 50%,
+      var(--cobalt) 0 75%,
+      var(--cobalt-light) 0
+    );
+  background-size: 50% 50%, 50% 50%;
+  box-shadow: inset 0 0 0 3px var(--glaze), inset 0 0 0 5px var(--cobalt);
+}
+
+.front {
+  background: white;
+  font-size: clamp(1.8rem, 9vw, 2.8rem);
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 0 2px var(--cobalt);
+}
+
+.card.up .back {
+  transform: rotateY(180deg);
+}
+
+.card.up .front {
+  transform: rotateY(0deg);
+}
+
+.card.matched .front {
+  box-shadow: inset 0 0 0 4px var(--lemon);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--lemon);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* Vittoria e pulsanti */
+.win {
+  text-align: center;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: var(--deep);
+  color: white;
+}
+
+.win p {
+  margin: 0 0 12px;
+}
+
+.restart {
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--lemon);
+  color: var(--deep);
+  cursor: pointer;
+}
+
+.restart.ghost {
+  background: transparent;
+  border: 2px solid var(--cobalt);
+  color: var(--cobalt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face {
+    transition: none;
+  }
+}
